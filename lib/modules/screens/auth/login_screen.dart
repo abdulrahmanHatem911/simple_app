@@ -6,7 +6,7 @@ import 'package:simple_app/core/utils/app_size.dart';
 import 'package:simple_app/core/utils/helper.dart';
 
 import '../../../controller/network/local/hive_server.dart';
-import '../../../core/services/services_locator.dart';
+import '../../../controller/services/services_locator.dart';
 import '../../widgets/default_bottom.dart';
 import '../../widgets/flutter_toast.dart';
 import '../../widgets/textform_widget.dart';

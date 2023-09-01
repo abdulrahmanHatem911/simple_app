@@ -4,7 +4,7 @@ import 'package:simple_app/controller/network/local/sql_server.dart';
 import 'package:simple_app/core/utils/app_size.dart';
 
 import '../../../controller/network/local/hive_server.dart';
-import '../../../core/services/services_locator.dart';
+import '../../../controller/services/services_locator.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
