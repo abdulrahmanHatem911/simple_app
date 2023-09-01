@@ -7,37 +7,42 @@ class HiveServer {
 
   Future<void> insertOrUpdateUser(String email, String password) async {
     final userBox = await Hive.openBox('users');
-
-    if (userBox.containsKey(email)) {
-      // User exists, update count.
-      final dynamic user = userBox.get(email);
-      final int currentCount = user['count'];
-      userBox.put(email, {
+    bool isExist = false;
+    for (var key in userBox.keys) {
+      final dynamic user = userBox.get(key);
+      if (user['email'] == email && user['password'] == password) {
+        isExist = true;
+        break;
+      }
+    }
+    if (isExist) {
+      //update count
+      await userBox.put(email, {
         'email': email,
         'password': password,
-        'count': currentCount + 1,
+        'count': userBox.get(email)['count'] + 1,
       });
-      //close box
-      await userBox.close();
+      userBox.close();
+      print("🚨count updated");
     } else {
-      userBox.put(email, {
+      await userBox.put(email, {
         'email': email,
         'password': password,
         'count': 1,
       });
-      //close box
-      await userBox.close();
+      userBox.close();
+      print('inserted item✅');
     }
   }
 
-  Future<List<Map<String, dynamic>>> getAllUsers() async {
+  Future<List<dynamic>> getAllUsers() async {
     final userBox = await Hive.openBox('users');
-    final List<Map<String, dynamic>> users = [];
+    final List<dynamic> users = [];
     for (var key in userBox.keys) {
-      final user = userBox.get(key) as Map<String, dynamic>;
+      final user = userBox.get(key);
       users.add(user);
     }
-    await userBox.close();
+    userBox.close();
     return users;
   }
 }

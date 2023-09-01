@@ -1,6 +1,4 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:simple_app/controller/network/local/sql_server.dart';
 import 'package:simple_app/core/utils/app_size.dart';
 
 import '../../../controller/network/local/hive_server.dart';
@@ -25,11 +23,19 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         backgroundColor: Colors.purple,
         title: const Text('Layout Screen'),
+        actions: [
+          IconButton(
+            onPressed: () {
+              ServiceLocator.instance<HiveServer>().getAllUsers().then((value) {
+                print(value);
+              });
+            },
+            icon: const Icon(Icons.refresh),
+          ),
+        ],
       ),
       body: FutureBuilder(
-        future: kIsWeb
-            ? ServiceLocator.instance<HiveServer>().getAllUsers()
-            : ServiceLocator.instance<SqliteService>().getAllUser(),
+        future: ServiceLocator.instance<HiveServer>().getAllUsers(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return ListView.separated(

@@ -11,11 +11,9 @@ import 'core/style/theme.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await ServiceLocator.init();
-  if (kIsWeb) {
-    await HiveServer.initializeDB();
-  } else {
-    await SqliteService().initializeDB();
-  }
+
+  await HiveServer.initializeDB();
+
   runApp(const MyApp());
 }
 
