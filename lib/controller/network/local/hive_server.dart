@@ -37,8 +37,6 @@ class HiveServer {
       final user = userBox.get(key) as Map<String, dynamic>;
       users.add(user);
     }
-    print("✅the list of users is ${users.length}");
-    //close box
     await userBox.close();
     return users;
   }

@@ -1,24 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:intl/intl.dart';
 
 extension MediaQueryExtension on BuildContext {
   MediaQueryData get mediaQuery => MediaQuery.of(this);
   double get height => mediaQuery.size.height;
   double get width => mediaQuery.size.width;
-  double get topPadding => mediaQuery.padding.top;
-  double get bottomPadding => mediaQuery.padding.bottom;
-  double get leftPadding => mediaQuery.padding.left;
-  double get rightPadding => mediaQuery.padding.right;
-  double get textScaleFactor => mediaQuery.textScaleFactor;
-  double get devicePixelRatio => mediaQuery.devicePixelRatio;
-  Orientation get orientation => mediaQuery.orientation;
-  EdgeInsets get viewInsets => mediaQuery.viewInsets;
-  EdgeInsets get viewPadding => mediaQuery.viewPadding;
-  bool get alwaysUse24HourFormat => mediaQuery.alwaysUse24HourFormat;
-  Brightness get platformBrightness => mediaQuery.platformBrightness;
-  bool get accessibleNavigation => mediaQuery.accessibleNavigation;
 }
 
 extension NavigatorHelper on BuildContext {
@@ -85,12 +72,6 @@ extension TranslationsHelper on BuildContext {
 class Helper {
   static String getLang(BuildContext context) {
     return Localizations.localeOf(context).languageCode;
-  }
-
-  // formatDate take date as String and return date as String
-  static formatDate(String date) {
-    // format date from 2021 - 01 - 01 to 2021 jun 01
-    return DateFormat.yMMMd().format(DateTime.parse(date));
   }
 
   static bool isEmailValid(String email) {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:simple_app/core/utils/helper.dart';
 
-import '../../../../../../core/utils/screen_config.dart';
 import '../../core/style/app_color.dart';
 
 class DefaultButton extends StatelessWidget {
@@ -11,15 +11,13 @@ class DefaultButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig.init(context);
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         backgroundColor: AppColor.primaryColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.0),
         ),
-        minimumSize:
-            Size(SizeConfig.screenWidth, SizeConfig.screenHeight * 0.07),
+        minimumSize: Size(context.width, context.height * 0.07),
       ),
       onPressed: onPressed,
       child: Text(
