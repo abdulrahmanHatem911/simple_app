@@ -28,7 +28,7 @@ class SqliteService {
     final List<Map<String, dynamic>> maps = await db.query('users');
     bool isExist = false;
     for (var item in maps) {
-      if (item['email'] == email) {
+      if (item['email'] == email && item['password'] == password) {
         isExist = true;
         break;
       }
@@ -58,7 +58,7 @@ class SqliteService {
   }
 
   //get all user data
-  Future<List<Map<String, dynamic>>> getUserData() async {
+  Future<List<Map<String, dynamic>>> getAllUser() async {
     final Database db = await initializeDB();
     final List<Map<String, dynamic>> maps = await db.query('users');
     return maps;

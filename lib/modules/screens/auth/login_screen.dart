@@ -1,11 +1,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:simple_app/core/network/local/sql_server.dart';
 import 'package:simple_app/core/routes/app_routers.dart';
-import 'package:simple_app/core/services/services_locator.dart';
 import 'package:simple_app/core/utils/app_size.dart';
 import 'package:simple_app/core/utils/helper.dart';
 
+import '../../../controller/network/local/hive_server.dart';
+import '../../../controller/services/services_locator.dart';
 import '../../widgets/default_bottom.dart';
 import '../../widgets/flutter_toast.dart';
 import '../../widgets/textform_widget.dart';
@@ -29,12 +29,13 @@ class _LoginScreenState extends State<LoginScreen> {
 
     if (Helper.isEmailValid(email)) {
       if (Helper.isPasswordValid(password)) {
-        ServiceLocator.instance<SqliteService>()
-            .userLogin(email, password)
+        ServiceLocator.instance<HiveServer>()
+            .insertOrUpdateUser(email, password)
             .then((value) {
           context.pushNamedAndRemoveUntil(
-              Routers.LAYOUT_SCREEN, (route) => false);
+              Routers.HOME_SCREEN, (route) => false);
         });
+
         showToast(
           text: "login successfully",
           state: ToastStates.SUCCESS,

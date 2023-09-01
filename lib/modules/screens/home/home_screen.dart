@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:simple_app/core/network/local/sql_server.dart';
-import 'package:simple_app/core/services/services_locator.dart';
 import 'package:simple_app/core/utils/app_size.dart';
+
+import '../../../controller/network/local/hive_server.dart';
+import '../../../controller/services/services_locator.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -22,9 +23,19 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         backgroundColor: Colors.purple,
         title: const Text('Layout Screen'),
+        actions: [
+          IconButton(
+            onPressed: () {
+              ServiceLocator.instance<HiveServer>().getAllUsers().then((value) {
+                print(value);
+              });
+            },
+            icon: const Icon(Icons.refresh),
+          ),
+        ],
       ),
       body: FutureBuilder(
-        future: ServiceLocator.instance<SqliteService>().getUserData(),
+        future: ServiceLocator.instance<HiveServer>().getAllUsers(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return ListView.separated(
@@ -32,7 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: const EdgeInsets.all(8),
               separatorBuilder: (context, index) => AppSize.sv_10,
               itemBuilder: (context, index) {
-                Map<String, dynamic> data = snapshot.data![index];
+                dynamic data = snapshot.data![index];
                 return Container(
                   decoration: BoxDecoration(
                     color: Colors.purple[50],
@@ -40,7 +51,17 @@ class _HomeScreenState extends State<HomeScreen> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: ListTile(
-                    leading: Text(data['count'].toString()),
+                    leading: CircleAvatar(
+                      backgroundColor: Colors.purple,
+                      radius: 22,
+                      child: Text(
+                        data['count'].toString(),
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
                     title: Text(data['email']),
                     subtitle: Text(data['password']),
                   ),
