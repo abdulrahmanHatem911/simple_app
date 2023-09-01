@@ -4,10 +4,11 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:simple_app/modules/screens/auth/login_screen.dart';
 
-import 'core/network/local/sql_server.dart';
+import 'controller/network/local/hive_server.dart';
+import 'controller/network/local/sql_server.dart';
+import 'controller/services/cache_helper.dart';
+import 'controller/services/services_locator.dart';
 import 'core/routes/app_routers.dart';
-import 'core/services/cache_helper.dart';
-import 'core/services/services_locator.dart';
 import 'core/style/theme.dart';
 import 'core/translate/l10n.dart';
 
@@ -16,6 +17,7 @@ void main() async {
   await ServiceLocator.init();
   if (kIsWeb) {
     print('web🚨');
+    await HiveServer.initializeDB();
   } else {
     await SqliteService().initializeDB();
   }

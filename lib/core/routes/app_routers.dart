@@ -4,13 +4,13 @@ import '../../modules/screens/home/home_screen.dart';
 
 class Routers {
   static const String INITIAL = '/';
-  static const String LAYOUT_SCREEN = '/layout-screen';
+  static const String HOME_SCREEN = '/home-screen';
 }
 
 class RoutersGenerated {
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
-      case Routers.LAYOUT_SCREEN:
+      case Routers.HOME_SCREEN:
         return MaterialPageRoute(
           builder: (BuildContext context) => const HomeScreen(),
           settings: settings,
